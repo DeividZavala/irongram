@@ -10,6 +10,9 @@ class FeedContainer extends Component{
     };
 
     componentWillMount(){
+
+        if(!localStorage.getItem("user")) return this.props.history.push('/login');
+
         getPosts()
             .then(posts=>{
                 this.setState({posts});

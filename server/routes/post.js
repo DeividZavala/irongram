@@ -10,8 +10,8 @@ function isAuthenticated(req, res, next){
     res.send("Epape epale perro que hace aqui");
 }
 
-router.post('/new',isAuthenticated, upload.single("picture"), (req, res) =>{
-    req.body.picture = req.file.path + '.' + req.file.mimetype.split('/')[1];
+router.post('/new', upload.single("picture"), (req, res) =>{
+    req.body.picture = `${req.protocol}://${req.headers.host}/images/posts/`+req.file.filename;
    Post.create(req.body)
        .then(post=>{
            res.json(post);
@@ -20,8 +20,10 @@ router.post('/new',isAuthenticated, upload.single("picture"), (req, res) =>{
    })
 });
 
-router.get('/',isAuthenticated, (req, res)=>{
+router.get('/', (req, res)=>{
    Post.find()
+       .populate("user", "name")
+       .populate("comments")
        .then(posts=>{
            res.json(posts);
        })

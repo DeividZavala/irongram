@@ -19,10 +19,10 @@ router.post('/signup', (req,res) => {
     })
 });
 
-router.get('/logout',isAuthenticated, (req,res) => {
+router.get('/logout', (req,res) => {
     req.logout();
     res.status(200);
-    res.send("Adios papud");
+    res.json({message:"Adios papud"});
 });
 
 router.get("/profile",isAuthenticated, (req, res) => {

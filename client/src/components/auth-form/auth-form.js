@@ -23,6 +23,7 @@ class AuthForm extends Component{
                     localStorage.setItem("user", JSON.stringify(user));
                     this.setState({user:{}});
                     this.props.history.push("/");
+                    window.location.reload();
                     return;
                 });
         }

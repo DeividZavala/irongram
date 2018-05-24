@@ -10,6 +10,7 @@ const logger       = require('morgan');
 const path         = require('path');
 const passport     = require('./helpers/passport');
 const session      = require('express-session');
+const cors = require('cors');
 
 mongoose.Promise = Promise;
 mongoose
@@ -25,6 +26,7 @@ const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.
 
 const app = express();
 
+app.use(cors());
 
 app.use(session({
     secret: "deiv",

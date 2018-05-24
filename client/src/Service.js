@@ -33,15 +33,28 @@ export function login(user) {
         .then(user=>user);
 }
 
+export function logout() {
+    return fetch(baseUrl+'/auth/logout')
+        .then(r=>r.json())
+        .then(res=>{
+            localStorage.removeItem("user");
+            return res
+        });
+}
+
 
 // Posts
 export function addPost(post) {
+
+    // Create a test FormData object
+    var formData = new FormData();
+    for(let k in post){
+        formData.append(k, post[k]);
+    }
+
     return fetch(baseUrl+'/posts/new',{
         method:'post',
-        headers: {
-            "Content-Type": "form-data"
-        },
-        body: JSON.stringify(post)
+        body: formData
     })
         .then(r=>r.json())
         .then(post=>post);
