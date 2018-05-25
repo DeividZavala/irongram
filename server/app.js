@@ -26,7 +26,11 @@ const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.
 
 const app = express();
 
-app.use(cors());
+corsOptions = {
+    origin: true,
+    credentials:true,
+};
+app.use(cors(corsOptions));
 
 app.use(session({
     secret: "deiv",
